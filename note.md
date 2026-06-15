@@ -1,6 +1,6 @@
 The Workflow:
 
-    Static Generation: Nuxt doesn't need a live server to run your blog once it's built. You will run npm run generate. This creates a dist/ folder containing all your HTML, CSS, and JS.  
+    Static Generation: Nuxt doesn't need a live server to run your blog once it's built. You will run npm run generate. This creates a dist/ folder containing all your HTML, CSS, and JS.
 
     GitHub Actions (Automation): You don't want to manually copy that dist/ folder every time you write a post. You should use a GitHub Action.
 
