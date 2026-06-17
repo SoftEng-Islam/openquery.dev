@@ -13,7 +13,13 @@
 		>
 			Click
 		</button>
-		<ul>
+		<p v-if="pending">
+			loading...
+		</p>
+		<p v-if="error">
+			There was an error OMG. {{ error.data.message }}
+		</p>
+		<ul v-else>
 			<li
 				v-for="value in data?.database"
 				:key="value"
@@ -29,7 +35,7 @@
 const count = useState("count", () => 0);
 console.log(count.value);
 
-const { data } = await useFetch("/api/hello", {});
+const { data, pending, error } = await useFetch("/api/hello", { server: false });
 
 useHead({
 	title: "The Open Query",

@@ -63,7 +63,7 @@ NIX_ENFORCE_NO_NATIVE='1'
 export NIX_ENFORCE_NO_NATIVE
 NIX_HARDENING_ENABLE='bindnow format fortify fortify3 libcxxhardeningextensive libcxxhardeningfast pic relro stackclashprotection stackprotector strictoverflow zerocallusedregs'
 export NIX_HARDENING_ENABLE
-NIX_LDFLAGS='-rpath /SSD/github/openquery.dev/outputs/out/lib  -L/nix/store/3lll9y925zz9393sa59h653xik66srjb-python3-3.13.9/lib -L/nix/store/l30c488dws7z5mazacqsmj25izb9jlp2-sqlite-3.50.4/lib -L/nix/store/3lll9y925zz9393sa59h653xik66srjb-python3-3.13.9/lib -L/nix/store/l30c488dws7z5mazacqsmj25izb9jlp2-sqlite-3.50.4/lib'
+NIX_LDFLAGS='-rpath /ssd100/github/openquery.dev/outputs/out/lib  -L/nix/store/3lll9y925zz9393sa59h653xik66srjb-python3-3.13.9/lib -L/nix/store/l30c488dws7z5mazacqsmj25izb9jlp2-sqlite-3.50.4/lib -L/nix/store/3lll9y925zz9393sa59h653xik66srjb-python3-3.13.9/lib -L/nix/store/l30c488dws7z5mazacqsmj25izb9jlp2-sqlite-3.50.4/lib'
 export NIX_LDFLAGS
 NIX_LDFLAGS_FOR_TARGET=' -L/nix/store/3lll9y925zz9393sa59h653xik66srjb-python3-3.13.9/lib -L/nix/store/l30c488dws7z5mazacqsmj25izb9jlp2-sqlite-3.50.4/lib'
 export NIX_LDFLAGS_FOR_TARGET
@@ -192,7 +192,7 @@ name='nix-shell-env'
 export name
 nativeBuildInputs=''
 export nativeBuildInputs
-out='/SSD/github/openquery.dev/outputs/out'
+out='/ssd100/github/openquery.dev/outputs/out'
 export out
 outputBin='out'
 outputDev='out'
@@ -223,7 +223,7 @@ preConfigurePhases=' updateAutotoolsGnuConfigScriptsPhase'
 declare -a preFixupHooks=('_moveToShare' '_multioutDocs' '_multioutDevs' )
 preferLocalBuild='1'
 export preferLocalBuild
-prefix='/SSD/github/openquery.dev/outputs/out'
+prefix='/ssd100/github/openquery.dev/outputs/out'
 declare -a propagatedBuildDepFiles=('propagated-build-build-deps' 'propagated-native-build-inputs' 'propagated-build-target-deps' )
 propagatedBuildInputs=''
 export propagatedBuildInputs
