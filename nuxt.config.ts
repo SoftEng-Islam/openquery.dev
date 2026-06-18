@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
@@ -12,12 +11,12 @@ export default defineNuxtConfig({
 		"@nuxt/image",
 		"@nuxtjs/google-fonts",
 		"@nuxtjs/seo",
-		"@nuxtjs/tailwindcss",
+		// "@nuxtjs/tailwindcss",
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
 	],
 	devtools: { enabled: true },
-	css: ["~/assets/css/main.css"],
+	// css: ["~/assets/css/main.css"],
 	compatibilityDate: "2024-04-03",
 	vite: {
 		plugins: [

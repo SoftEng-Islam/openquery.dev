@@ -21,11 +21,11 @@
 		</p>
 		<ul v-else>
 			<li
-				v-for="value in data?.database"
-				:key="value"
+				v-for="fruit in data?.fruits"
+				:key="fruit.id"
 				class="p-2"
 			>
-				{{ value }}
+				{{ fruit.name }}
 			</li>
 		</ul>
 	</div>

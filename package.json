@@ -24,6 +24,7 @@
     "@takumi-rs/core": "^1.8.4",
     "@vueuse/nuxt": "14.3.0",
     "better-sqlite3": "^12.10.0",
+    "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "eslint": "^10.5.0",
     "nuxt": "^4.4.8",
@@ -33,7 +34,9 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.1",
     "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.9.3",
     "drizzle-kit": "^0.31.10",
-    "tailwindcss": "^4.3.1"
+    "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3"
   }
 }
