@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const profileId = useRoute().params.profileId;
+definePageMeta({
+	layout: "profiles",
+});
 </script>
 
 <template>

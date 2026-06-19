@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 		"@nuxtjs/color-mode",
 	],
 	devtools: { enabled: true },
-	// css: ["~/assets/css/main.css"],
+	css: ["~/assets/css/main.css"],
 	compatibilityDate: "2024-04-03",
 	vite: {
 		plugins: [

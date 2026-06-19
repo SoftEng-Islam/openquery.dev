@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h1 class="text-red-500">
-			Hello Word
-		</h1>
+		<PageTitle color-class="text-green-500">
+			Home Page
+		</PageTitle>
 		<NuxtLink to="/about">About</NuxtLink>
 		<br>
 		{{ count }}
