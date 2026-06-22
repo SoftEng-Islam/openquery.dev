@@ -1,5 +1,5 @@
 import * as argon2 from "argon2";
-import { table } from "node:console";
+import { usersTable } from "~~/server/db/schema";
 
 export default defineEventHandler(async (event) => {
 	const { username, password } = await readBody(event);
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 	const hashedPassword = await argon2.hash("password");
 	console.log("Hashed Password:", hashedPassword);
 	const db = useDrizzle();
-	const insertResult = db.insert(tables.usersTable).values({
+	const insertResult = await db.insert(usersTable).values({
 		username: username,
 		password: hashedPassword,
 	}).returning();
