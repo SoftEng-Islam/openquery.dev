@@ -4,18 +4,35 @@ import { usersTable } from "~~/server/db/schema";
 
 export default defineEventHandler(async (event) => {
 	const { username, password } = await readBody(event);
-	console.log(password);
+
 	if (!(username && password)) {
-		throw createError({ statusCode: 400, message: "Username and Password must be provided in data body." });
+		throw createError({
+			statusCode: 400,
+			message: "Username and password are required.",
+		});
 	}
+
 	const db = useDrizzle();
-	const user = db.select().from(usersTable).where(eq(usersTable.username, username)).limit(1).get();
+
+	// Added 'await' to be safe (assumes an async DB driver)
+	// Used .execute() or .limit(1) array destructuring depending on your dialect
+	const [user] = await db.select().from(usersTable).where(eq(usersTable.username, username)).limit(1);
+
+	// Generic error for both "no user" and "bad password"
+	const genericAuthError = createError({
+		statusCode: 401,
+		message: "Invalid username or password.",
+	});
 
 	if (!user) {
-		throw createError({ statusCode: 404, message: "User could not be found from the database with given username." });
+		throw genericAuthError;
 	}
-	if (!(await argon2.verify(user.password, password))) {
-		throw createError({ statusCode: 401, message: "Invalid Password" });
+
+	const isPasswordValid = await argon2.verify(user.password, password);
+
+	if (isPasswordValid) {
+		throw genericAuthError;
 	}
+
 	return { success: true };
 });
