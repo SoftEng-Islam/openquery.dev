@@ -59,19 +59,25 @@ async function submitForm() {
 		error.value = "You must specify a Password!";
 		return;
 	}
-	const result = await $fetch.raw("/api/auth/register", {
+	const result = await $fetch.raw("/api/auth/login", {
 		method: "POST",
 		body: {
 			username: form.username,
 			password: form.password,
 		},
+		async onResponseError({ response }) {
+			if (response.status === 401) {
+				error.value = (response._data).message;
+				return;
+			}
+		},
 	});
 	// error.value = JSON.stringify(result);
 	if (!result.ok) {
-		error.value = "Something went wrong while registering";
+		error.value = "Something went wrong while logging in!";
 		return;
 	}
-	error.value = "User Successfully Created";
+	error.value = "User Successfully Logged In";
 }
 const form = reactive({
 	username: "",
