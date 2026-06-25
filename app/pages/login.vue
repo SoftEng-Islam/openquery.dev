@@ -77,7 +77,13 @@ async function submitForm() {
 		error.value = "Something went wrong while logging in!";
 		return;
 	}
-	error.value = "User Successfully Logged In";
+	// error.value = result._data?.token ?? "No Token was returned!";
+	if (result._data && result._data.token) {
+		useCookie("jwt_token").value = result._data.token;
+	}
+	else {
+		error.value = "There was an issue with the data body from the response. Contact an Admin.";
+	}
 }
 const form = reactive({
 	username: "",
