@@ -29,11 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-interface User {
-	id: number;
-	username: string;
-}
-const user = ref<User | null>(null);
+const user = ref<JwtUserInfo | null>(null);
 
 onMounted(async () => {
 	const token = useCookie("jwt_token");
