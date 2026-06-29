@@ -53,4 +53,8 @@ async function verifyAuth() {
 	}
 	user.value = result.user;
 }
+
+watch(refreshKey, async () => {
+	await verifyAuth();
+});
 </script>
