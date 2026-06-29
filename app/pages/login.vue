@@ -78,12 +78,13 @@ async function submitForm() {
 		return;
 	}
 	// error.value = result._data?.token ?? "No Token was returned!";
-	if (result._data && result._data.token) {
-		useCookie("jwt_token").value = result._data.token;
-	}
-	else {
+	if (!(result._data && result._data.token)) {
 		error.value = "There was an issue with the data body from the response. Contact an Admin.";
+		return;
 	}
+
+	useCookie("jwt_token").value = result._data.token;
+	await navigateTo("/");
 }
 const form = reactive({
 	username: "",

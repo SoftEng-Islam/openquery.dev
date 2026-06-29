@@ -43,7 +43,6 @@ onMounted(async () => {
 	if (!result.success) {
 		return;
 	}
-	console.log(result.user);
 	user.value = result.user;
 });
 </script>
