@@ -1,5 +1,8 @@
 <template>
-	<nav class="flex justify-between p-4 bg-neutral-800 rounded-md mb-4">
+	<nav
+		:key="refreshKey"
+		class="flex justify-between p-4 bg-neutral-800 rounded-md mb-4"
+	>
 		<ul class="flex flex-row gap-x-4 [&>li]:border [&>li]:px-3 [&>li]:rounded-md [&>li]:py-2 [&>li]:hover:bg-amber-600 [&>li]:cursor-pointer">
 			<li>
 				<nuxtLink to="/">Website</nuxtLink>
@@ -29,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+const refreshKey = useState<number>("navbarRefreshKey", () => 0);
 const user = ref<JwtUserInfo | null>(null);
 
 onMounted(async () => {
