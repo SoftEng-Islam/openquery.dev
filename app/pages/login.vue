@@ -44,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+const navbarRefreshKey = useState<number>("navbarRefreshKey", () => 0);
 const error = ref<string | null>(null);
 async function submitForm() {
 	error.value = null;
@@ -84,6 +85,7 @@ async function submitForm() {
 	}
 
 	useCookie("jwt_token").value = result._data.token;
+	navbarRefreshKey.value++;
 	await navigateTo("/");
 }
 const form = reactive({

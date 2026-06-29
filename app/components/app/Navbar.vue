@@ -36,6 +36,10 @@ const refreshKey = useState<number>("navbarRefreshKey", () => 0);
 const user = ref<JwtUserInfo | null>(null);
 
 onMounted(async () => {
+	await verifyAuth();
+});
+
+async function verifyAuth() {
 	const token = useCookie("jwt_token");
 	if (!token) {
 		return;
@@ -48,5 +52,5 @@ onMounted(async () => {
 		return;
 	}
 	user.value = result.user;
-});
+}
 </script>
