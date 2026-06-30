@@ -4,6 +4,18 @@
 			Home Page
 		</PageTitle>
 		<NuxtLink to="/about">About</NuxtLink>
+		<NuxtImg
+			src="/img/BTA12.jpg"
+			alt="Nuxt Logo"
+			width="200"
+			height="200"
+			format="webp"
+			placeholder="blur"
+			quality="50"
+			fit="cover"
+			preload
+			loading="lazy"
+		/>
 		<br>
 		{{ count }}
 		<br>
