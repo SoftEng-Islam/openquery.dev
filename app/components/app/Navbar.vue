@@ -25,6 +25,9 @@
 				v-else
 				class="flex gap-x-3 flex-row items-center justify-center"
 			>
+				<div @click="logout">
+					Logout
+				</div>
 				{{ user.username }}
 			</div>
 		</ul>
@@ -33,11 +36,14 @@
 
 <script lang="ts" setup>
 const refreshKey = useState<number>("navbarRefreshKey", () => 0);
-const user = ref<JwtUserInfo | null>(null);
-
-onMounted(async () => {
-	await verifyAuth();
+const { data: user } = await useAsyncData("navbarUser", verifyAuth, {
+	watch: [refreshKey],
 });
+
+async function logout() {
+	useCookie("jwt_token").value = undefined;
+	refreshKey.value++;
+}
 
 async function verifyAuth() {
 	const token = useCookie("jwt_token");
@@ -51,10 +57,6 @@ async function verifyAuth() {
 	if (!result.success) {
 		return;
 	}
-	user.value = result.user;
+	return result.user as JwtUserInfo;
 }
-
-watch(refreshKey, async () => {
-	await verifyAuth();
-});
 </script>
