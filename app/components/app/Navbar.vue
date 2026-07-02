@@ -3,34 +3,40 @@
 		:key="refreshKey"
 		class="flex justify-between p-4 bg-neutral-800 rounded-md mb-4"
 	>
-		<ul class="flex flex-row gap-x-4 [&>li]:border [&>li]:px-3 [&>li]:rounded-md [&>li]:py-2 [&>li]:hover:bg-amber-600 [&>li]:cursor-pointer">
-			<li>
-				<nuxtLink to="/">Website</nuxtLink>
-			</li>
-			<li>
+		<NuxtLink to="/">Home</NuxtLink>
+
+		<TransitionGroup
+			tag="div"
+			class="flex flex-row gap-x-4"
+			name="fade-nav"
+		>
+			<div key="about">
 				<nuxtLink to="/about">About</nuxtLink>
-			</li>
+			</div>
+
 			<div
 				v-if="!user"
+				key="guest"
 				class="flex gap-x-3 flex-row items-center justify-center"
 			>
-				<li>
+				<div class="bg-amber-400 rounded-md px-3 py-2">
 					<nuxtLink to="/register">Register</nuxtLink>
-				</li>
-				<li>
+				</div>
+
+				<div class="bg-green-400 rounded-md px-3 py-2">
 					<nuxtLink to="/login">Login</nuxtLink>
-				</li>
+				</div>
 			</div>
 			<div
 				v-else
+				key="user"
 				class="flex gap-x-3 flex-row items-center justify-center"
 			>
 				<div @click="logout">
 					Logout
 				</div>
-				{{ user.username }}
 			</div>
-		</ul>
+		</TransitionGroup>
 	</nav>
 </template>
 
@@ -60,3 +66,22 @@ async function verifyAuth() {
 	return result.user as JwtUserInfo;
 }
 </script>
+
+<style scoped>
+.fade-nav-enter-active,
+.fade-nav-leave-active {
+	transition: all 0.3s ease;
+}
+.fade-nav-enter-from {
+	opacity: 0;
+	transform: translateY(-10px);
+}
+.fade-nav-leave-to {
+	opacity: 0;
+	transform: translateY(10px);
+}
+.fade-nav-leave-active {
+	position: absolute;
+	right: 1rem;
+}
+</style>

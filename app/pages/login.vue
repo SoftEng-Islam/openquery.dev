@@ -16,6 +16,7 @@
 				name="Username"
 				placeholder="username"
 				class="bg-gray-200 rounded-md mb-3 placeholder:text-black pl-2 focus:placeholder:opacity-0 text-blue-500"
+				autocomplete="username"
 			>
 			<label for="password">Password: </label>
 			<input
@@ -25,6 +26,7 @@
 				name="password"
 				placeholder="Password"
 				class="bg-gray-200 rounded-md mb-3 placeholder:text-black pl-2 focus:placeholder:opacity-0 text-blue-500"
+				autocomplete="current-password"
 			>
 
 			<button

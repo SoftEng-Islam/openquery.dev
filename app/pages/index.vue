@@ -25,21 +25,23 @@
 		>
 			Click
 		</button>
-		<p v-if="pending">
-			loading...
-		</p>
-		<p v-if="error">
-			There was an error OMG. {{ error.data.message }}
-		</p>
-		<ul v-else>
-			<li
-				v-for="fruit in data?.fruits"
-				:key="fruit.id"
-				class="p-2"
-			>
-				{{ fruit.name }}
-			</li>
-		</ul>
+		<ClientOnly>
+			<p v-if="pending">
+				loading...
+			</p>
+			<p v-if="error">
+				There was an error OMG. {{ error.data.message }}
+			</p>
+			<ul v-else>
+				<li
+					v-for="fruit in data?.fruits"
+					:key="fruit.id"
+					class="p-2"
+				>
+					{{ fruit.name }}
+				</li>
+			</ul>
+		</ClientOnly>
 	</div>
 </template>
 
