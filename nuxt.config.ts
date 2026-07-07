@@ -17,8 +17,12 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	app: {
 		pageTransition: { name: "page", mode: "out-in" },
+		baseURL: process.env.NUXT_APP_BASE_URL || "/",
 	},
 	css: ["~/assets/css/main.css"],
+	site: {
+		url: process.env.NUXT_PUBLIC_SITE_URL || "https://openquery.dev",
+	},
 	compatibilityDate: "2024-04-03",
 	vite: {
 		plugins: [

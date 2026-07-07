@@ -1,9 +1,18 @@
 @import "tailwindcss";
 
-*{
+* {
 	box-sizing: border-box;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	@apply bg-zinc-500 text-white p-4;
+	@apply min-h-screen bg-zinc-950 p-4 text-zinc-100 antialiased;
+	font-family: Inter Variable, Roboto, sans-serif;
+}
+
+::selection {
+	@apply bg-emerald-500/40 text-white;
 }

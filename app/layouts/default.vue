@@ -1,6 +1,8 @@
 <template>
-	<div>
+	<div class="mx-auto max-w-5xl py-4 sm:py-6">
 		<AppNavbar />
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</div>
 </template>
