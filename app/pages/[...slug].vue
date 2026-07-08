@@ -26,36 +26,23 @@ const readingTime = computed(() => {
 	return `${minutes} min read`;
 });
 
-useHead({
+useSeoMeta({
 	title: page.value?.title ? `${page.value.title} • OpenQuery` : "OpenQuery",
+	description: page.value?.description || "A personal blog built with Nuxt and Nuxt Content.",
+	ogTitle: page.value?.title || "OpenQuery",
+	ogDescription: page.value?.description || "A web development blog",
+	ogType: "article",
+	articleAuthor: page.value?.author || "Islam Ahmed",
+	articlePublishedTime: page.value?.date?.toISOString() || new Date().toISOString(),
+	twitterTitle: page.value?.title || "OpenQuery",
+	twitterDescription: page.value?.description || "A web development blog",
+});
+
+useHead({
 	meta: [
-		{
-			name: "description",
-			content: page.value?.description || "A personal blog built with Nuxt and Nuxt Content.",
-		},
 		{
 			name: "author",
 			content: page.value?.author || "Islam Ahmed",
-		},
-		{
-			property: "og:type",
-			content: "article",
-		},
-		{
-			property: "og:title",
-			content: page.value?.title || "OpenQuery",
-		},
-		{
-			property: "og:description",
-			content: page.value?.description || "A web development blog",
-		},
-		{
-			property: "article:author",
-			content: page.value?.author || "Islam Ahmed",
-		},
-		{
-			property: "article:published_time",
-			content: page.value?.date?.toISOString() || new Date().toISOString(),
 		},
 	],
 });

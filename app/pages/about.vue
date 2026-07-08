@@ -152,24 +152,20 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+useSeoMeta({
 	title: "Islam Ahmed (@SoftEng) • OpenQuery",
+	description: "Islam Ahmed is a web developer (@SoftEng) creating tutorials, guides, and insights on code, design, and creative development.",
+	ogTitle: "Islam Ahmed (@SoftEng) • OpenQuery",
+	ogDescription: "Web developer sharing tutorials, guides, and insights on code and design.",
+	twitterTitle: "Islam Ahmed (@SoftEng) • OpenQuery",
+	twitterDescription: "Web developer sharing tutorials, guides, and insights on code and design.",
+});
+
+useHead({
 	meta: [
-		{
-			name: "description",
-			content: "Islam Ahmed is a web developer (@SoftEng) creating tutorials, guides, and insights on code, design, and creative development.",
-		},
 		{
 			name: "keywords",
 			content: "Islam Ahmed, SoftEng, web developer, tutorials, code, design",
-		},
-		{
-			property: "og:title",
-			content: "Islam Ahmed (@SoftEng) • OpenQuery",
-		},
-		{
-			property: "og:description",
-			content: "Web developer sharing tutorials, guides, and insights on code and design.",
 		},
 	],
 });

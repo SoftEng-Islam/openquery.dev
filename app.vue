@@ -6,19 +6,13 @@ useHead({
 			name: "author",
 			content: "Islam Ahmed",
 		},
-		{
-			name: "twitter:creator",
-			content: "@SoftEng_Islam",
-		},
-		{
-			property: "og:site_name",
-			content: "OpenQuery",
-		},
-		{
-			property: "og:type",
-			content: "website",
-		},
 	],
+});
+
+useSeoMeta({
+	twitterCreator: "@SoftEng_Islam",
+	ogSiteName: "OpenQuery",
+	ogType: "website",
 });
 
 // Add JSON-LD structured data

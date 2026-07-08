@@ -132,13 +132,20 @@ function estimateReadTime(text?: string) {
 	return `${minutes} min read`;
 }
 
-useHead({
+useSeoMeta({
 	title: "OpenQuery — Web Development Blog by Islam Ahmed (@SoftEng)",
+	description: "Web development tutorials, guides, and insights from Islam Ahmed (@SoftEng). Learn about code, design, and creative development.",
+	ogTitle: "OpenQuery — Web Development Blog by Islam Ahmed",
+	ogDescription: "Tutorials, guides, and insights on web development from Islam Ahmed (@SoftEng)",
+	ogType: "website",
+	twitterCard: "summary_large_image",
+	twitterCreator: "@SoftEng_Islam",
+	twitterTitle: "OpenQuery — Web Development Blog by Islam Ahmed",
+	twitterDescription: "Tutorials, guides, and insights on web development from Islam Ahmed (@SoftEng)",
+});
+
+useHead({
 	meta: [
-		{
-			name: "description",
-			content: "Web development tutorials, guides, and insights from Islam Ahmed (@SoftEng). Learn about code, design, and creative development.",
-		},
 		{
 			name: "keywords",
 			content: "web development, tutorials, guides, code, design, JavaScript, web design",
@@ -146,26 +153,6 @@ useHead({
 		{
 			name: "author",
 			content: "Islam Ahmed",
-		},
-		{
-			property: "og:title",
-			content: "OpenQuery — Web Development Blog by Islam Ahmed",
-		},
-		{
-			property: "og:description",
-			content: "Tutorials, guides, and insights on web development from Islam Ahmed (@SoftEng)",
-		},
-		{
-			property: "og:type",
-			content: "website",
-		},
-		{
-			property: "twitter:card",
-			content: "summary_large_image",
-		},
-		{
-			property: "twitter:creator",
-			content: "@SoftEng_Islam",
 		},
 	],
 });
