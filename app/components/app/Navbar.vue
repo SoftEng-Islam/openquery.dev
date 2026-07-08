@@ -1,25 +1,87 @@
 <template>
-	<nav class="mb-6 flex flex-wrap items-center justify-between rounded-full border border-zinc-800 bg-zinc-900/80 px-4 py-3 shadow-sm">
-		<NuxtLink
-			to="/"
-			class="text-lg font-semibold tracking-tight text-white"
-		>
-			OpenQuery
-		</NuxtLink>
+	<nav class="border-b border-zinc-800 bg-zinc-950/50 backdrop-blur-sm">
+		<div class="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+			<div class="flex items-center justify-between">
+				<!-- Logo Section -->
+				<div class="flex items-center gap-3">
+					<NuxtLink
+						to="/"
+						class="flex flex-col gap-0.5"
+					>
+						<div class="text-lg font-bold tracking-tight text-white">
+							OpenQuery
+						</div>
+						<div class="text-xs text-zinc-500 font-medium">
+							Blog & Insights
+						</div>
+					</NuxtLink>
+				</div>
 
-		<div class="flex items-center gap-4 text-sm text-zinc-300">
-			<NuxtLink
-				to="/"
-				class="transition hover:text-white"
-			>
-				Home
-			</NuxtLink>
-			<NuxtLink
-				to="/about"
-				class="transition hover:text-white"
-			>
-				About
-			</NuxtLink>
+				<!-- Main Navigation -->
+				<div class="hidden md:flex items-center gap-1">
+					<NuxtLink
+						to="/"
+						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+					>
+						Home
+					</NuxtLink>
+					<NuxtLink
+						to="/about"
+						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+					>
+						About
+					</NuxtLink>
+					<a
+						href="#posts"
+						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+					>
+						Blog
+					</a>
+				</div>
+
+				<!-- Right Side Actions -->
+				<div class="flex items-center gap-3">
+					<!-- Search Icon -->
+					<button
+						class="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+						aria-label="Search"
+					>
+						<svg
+							class="w-5 h-5"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+					</button>
+
+					<!-- Mobile Menu Button -->
+					<button
+						class="p-2 md:hidden text-zinc-400 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+						aria-label="Menu"
+					>
+						<svg
+							class="w-5 h-5"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
 		</div>
 	</nav>
 </template>

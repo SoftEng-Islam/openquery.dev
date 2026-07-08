@@ -22,6 +22,10 @@ export default defineNuxtConfig({
 	css: ["~/assets/css/main.css"],
 	site: {
 		url: process.env.NUXT_PUBLIC_SITE_URL || "https://openquery.dev",
+		name: "OpenQuery",
+		description: "Web development insights, tutorials, and thoughts from Islam Ahmed (@SoftEng)",
+		defaultLocale: "en",
+		trailingSlash: true,
 	},
 	compatibilityDate: "2024-04-03",
 	vite: {
