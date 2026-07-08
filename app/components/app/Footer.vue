@@ -115,7 +115,7 @@
 				<!-- Bottom Footer -->
 				<div class="flex flex-col md:flex-row justify-between items-center gap-4">
 					<div class="text-sm text-zinc-500">
-						<p>&copy; 2026 Islam Ahmed (@SoftEng). All rights reserved.</p>
+						<p>&copy; 2026 Islam Ahmed (<a href="https://x.com/SoftEng_Islam" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition">@SoftEng</a>). All rights reserved.</p>
 					</div>
 					<div class="text-xs text-zinc-600 space-x-4">
 						<span>Built with <a href="https://nuxt.com" target="_blank" class="text-emerald-400 hover:text-emerald-300">Nuxt</a></span>
