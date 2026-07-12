@@ -3,6 +3,7 @@ title: "Hello from the new blog"
 description: "A short first post that introduces the new personal blog setup."
 date: 2026-07-07
 author: "Islam Ahmed"
+category: "General"
 ---
 
 Welcome to the new home for ideas and notes.

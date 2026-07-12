@@ -40,9 +40,9 @@
 					<h2 class="text-3xl font-bold text-white">
 						Latest articles
 					</h2>
-					<span class="text-sm text-zinc-500">
-						{{ posts?.length }} article{{ posts?.length === 1 ? "" : "s" }}
-					</span>
+					<NuxtLink to="/blog" class="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
+						View all →
+					</NuxtLink>
 				</div>
 				<div class="h-1 w-16 bg-linear-to-r from-emerald-500 to-transparent rounded-full"></div>
 			</div>
@@ -57,7 +57,13 @@
 					class="group rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10"
 				>
 					<!-- Date and Metadata -->
-					<div class="flex items-center gap-3 text-xs text-zinc-400 mb-4">
+					<div class="flex flex-wrap items-center gap-3 text-xs text-zinc-400 mb-4">
+						<span
+							v-if="post.category && post.category !== 'Uncategorized'"
+							class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+						>
+							{{ post.category }}
+						</span>
 						<time :datetime="post.date">
 							{{ formatDate(post.date) }}
 						</time>
@@ -92,8 +98,19 @@
 				v-else
 				class="rounded-xl border-2 border-dashed border-zinc-800 p-8 text-center text-zinc-400"
 			>
-				No posts yet. Add a Markdown file inside the content/posts folder to publish your first article.
+				No posts yet. Add a Markdown file inside the content/blog folder to publish your first article.
 			</p>
+			<div class="mt-8 text-center">
+				<NuxtLink
+					to="/blog"
+					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors border border-zinc-800"
+				>
+					<span>View all articles</span>
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+					</svg>
+				</NuxtLink>
+			</div>
 		</section>
 	</div>
 </template>
@@ -103,13 +120,15 @@ const { data: posts } = await useAsyncData("blog-posts", async () => {
 	const allPages = await queryCollection("content").all();
 
 	return allPages
-		.filter((page: any) => page.path.startsWith("/posts/"))
+		.filter((page: any) => page.path.startsWith("/blog/"))
 		.sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
+		.slice(0, 2)
 		.map((page: any) => ({
 			title: page.title || "Untitled post",
 			description: page.description || "A new entry from the blog.",
 			path: page.path,
 			date: page.date,
+			category: page.category || "Uncategorized",
 		}));
 });
 

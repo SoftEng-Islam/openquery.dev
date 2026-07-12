@@ -26,11 +26,16 @@
 						<div class="flex items-start gap-2">
 							<span class="text-emerald-400/60 group-hover:text-emerald-400 transition text-xs font-mono mt-0.5">→</span>
 							<div>
-								<p class="text-sm font-medium text-zinc-200 group-hover:text-white transition line-clamp-2">
+								<div class="flex items-center gap-2 mb-1">
+									<span v-if="post.category && post.category !== 'Uncategorized'" class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 leading-none">
+										{{ post.category }}
+									</span>
+									<p class="text-xs text-zinc-500 leading-none">
+										{{ formatDate(post.date) }}
+									</p>
+								</div>
+								<p class="text-sm font-medium text-zinc-200 group-hover:text-white transition line-clamp-2 leading-snug">
 									{{ post.title }}
-								</p>
-								<p class="text-xs text-zinc-500 mt-1">
-									{{ formatDate(post.date) }}
 								</p>
 							</div>
 						</div>
@@ -139,13 +144,14 @@ const { data: posts } = await useAsyncData("blog-posts", async () => {
 	const allPages = await queryCollection("content").all();
 
 	return allPages
-		.filter((page: any) => page.path.startsWith("/posts/"))
+		.filter((page: any) => page.path.startsWith("/blog/"))
 		.sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
 		.map((page: any) => ({
 			title: page.title || "Untitled post",
 			description: page.description || "A new entry from the blog.",
 			path: page.path,
 			date: page.date,
+			category: page.category || "Uncategorized",
 		}));
 });
 

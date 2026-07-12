@@ -32,8 +32,8 @@
 						About
 					</NuxtLink>
 					<NuxtLink
-						to="/#latest-posts"
-						:class="navLinkClass('#latest-posts', true)"
+						to="/blog"
+						:class="navLinkClass('/blog')"
 					>
 						Blog
 					</NuxtLink>
