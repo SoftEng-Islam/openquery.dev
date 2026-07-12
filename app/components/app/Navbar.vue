@@ -21,22 +21,22 @@
 				<div class="hidden md:flex items-center gap-1">
 					<NuxtLink
 						to="/"
-						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+						:class="navLinkClass('/')"
 					>
 						Home
 					</NuxtLink>
 					<NuxtLink
 						to="/about"
-						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+						:class="navLinkClass('/about')"
 					>
 						About
 					</NuxtLink>
-					<a
-						href="#posts"
-						class="px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+					<NuxtLink
+						to="/#latest-posts"
+						:class="navLinkClass('#latest-posts', true)"
 					>
 						Blog
-					</a>
+					</NuxtLink>
 				</div>
 
 				<!-- Right Side Actions -->
@@ -85,3 +85,21 @@
 		</div>
 	</nav>
 </template>
+
+<script setup lang="ts">
+const route = useRoute();
+
+const navLinkClass = (to: string, isHash = false) => {
+	const base = "px-3 py-2 text-sm font-medium rounded-md transition-all duration-200";
+	const active = isHash
+		? route.path === "/" && route.hash === to
+		: route.path === to;
+
+	return [
+		base,
+		active
+			? "text-white bg-emerald-600/15 border border-emerald-500 shadow-sm shadow-emerald-500/10"
+			: "text-zinc-300 hover:text-white hover:bg-zinc-900/50",
+	].join(" ");
+};
+</script>
