@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+	font-family: "Karla";
+	src: url("/fonts/karla-regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -10,7 +18,7 @@ html {
 
 body {
 	@apply min-h-screen bg-zinc-950 p-4 text-zinc-100 antialiased;
-	font-family: Inter Variable, Roboto, sans-serif;
+	font-family: "Karla", Inter Variable, Roboto, sans-serif;
 }
 
 ::selection {
