@@ -14,29 +14,32 @@
 		</section>
 
 		<!-- Categories -->
-		<section v-if="categories.length > 0" class="mb-8">
+		<section
+			v-if="categories.length > 0"
+			class="mb-8"
+		>
 			<div class="flex flex-wrap gap-2">
 				<button
-					@click="activeCategory = 'All'"
 					:class="[
 						'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
 						activeCategory === 'All'
 							? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50'
-							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300'
+							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300',
 					]"
+					@click="activeCategory = 'All'"
 				>
 					All
 				</button>
 				<button
 					v-for="category in categories"
 					:key="category"
-					@click="activeCategory = category"
 					:class="[
 						'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
 						activeCategory === category
 							? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50'
-							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300'
+							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300',
 					]"
+					@click="activeCategory = category"
 				>
 					{{ category }}
 				</button>
@@ -85,8 +88,18 @@
 						class="inline-flex items-center gap-2 text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors mt-auto"
 					>
 						<span>Read article</span>
-						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+						<svg
+							class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 7l5 5m0 0l-5 5m5-5H6"
+							/>
 						</svg>
 					</NuxtLink>
 				</article>
@@ -122,14 +135,14 @@ const { data: posts } = await useAsyncData("blog-posts-all", async () => {
 
 const categories = computed(() => {
 	if (!posts.value) return [];
-	const cats = new Set(posts.value.map((post) => post.category).filter((c) => c !== "Uncategorized"));
+	const cats = new Set(posts.value.map(post => post.category).filter(c => c !== "Uncategorized"));
 	return Array.from(cats).sort();
 });
 
 const filteredPosts = computed(() => {
 	if (!posts.value) return [];
 	if (activeCategory.value === "All") return posts.value;
-	return posts.value.filter((post) => post.category === activeCategory.value);
+	return posts.value.filter(post => post.category === activeCategory.value);
 });
 
 function formatDate(value?: string | number | Date) {
