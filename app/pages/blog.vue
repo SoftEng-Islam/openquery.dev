@@ -18,7 +18,7 @@
 			v-if="categories.length > 0"
 			class="mb-8"
 		>
-			<div class="flex flex-wrap gap-2">
+			<div class="flex flex-wrap items-center gap-2">
 				<button
 					:class="[
 						'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
@@ -26,12 +26,12 @@
 							? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50'
 							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300',
 					]"
-					@click="activeCategory = 'All'"
+					@click="setCategory('All')"
 				>
 					All
 				</button>
 				<button
-					v-for="category in categories"
+					v-for="category in displayedCategories"
 					:key="category"
 					:class="[
 						'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
@@ -39,21 +39,28 @@
 							? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50'
 							: 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-300',
 					]"
-					@click="activeCategory = category"
+					@click="setCategory(category)"
 				>
 					{{ category }}
 				</button>
+
+				<NuxtLink
+					to="/categories"
+					class="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border border-transparent text-emerald-400 hover:bg-emerald-500/10"
+				>
+					View all categories →
+				</NuxtLink>
 			</div>
 		</section>
 
 		<!-- Posts Grid -->
 		<section>
 			<div
-				v-if="filteredPosts && filteredPosts.length > 0"
+				v-if="limitedPosts && limitedPosts.length > 0"
 				class="grid gap-6 md:grid-cols-2"
 			>
 				<article
-					v-for="post in filteredPosts"
+					v-for="post in limitedPosts"
 					:key="post.path"
 					class="group rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 flex flex-col"
 				>
@@ -111,12 +118,33 @@
 			>
 				No posts found in this category.
 			</p>
+
+			<div v-if="hasMorePosts" class="mt-12 text-center">
+				<button
+					@click="loadMore"
+					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors border border-zinc-800"
+				>
+					Load more posts
+				</button>
+			</div>
 		</section>
 	</div>
 </template>
 
 <script setup lang="ts">
-const activeCategory = ref("All");
+const route = useRoute();
+const router = useRouter();
+const activeCategory = ref(route.query.category ? String(route.query.category) : "All");
+
+watch(() => route.query.category, (newCategory) => {
+	activeCategory.value = newCategory ? String(newCategory) : "All";
+});
+
+const setCategory = (category: string) => {
+	activeCategory.value = category;
+	router.push({ query: category === 'All' ? undefined : { category } });
+	postLimit.value = 6;
+};
 
 const { data: posts } = await useAsyncData("blog-posts-all", async () => {
 	const allPages = await queryCollection("content").all();
@@ -139,11 +167,21 @@ const categories = computed(() => {
 	return Array.from(cats).sort();
 });
 
+const displayedCategories = computed(() => categories.value.slice(0, 4));
+
 const filteredPosts = computed(() => {
 	if (!posts.value) return [];
 	if (activeCategory.value === "All") return posts.value;
 	return posts.value.filter(post => post.category === activeCategory.value);
 });
+
+const postLimit = ref(6);
+const limitedPosts = computed(() => filteredPosts.value.slice(0, postLimit.value));
+const hasMorePosts = computed(() => filteredPosts.value.length > postLimit.value);
+
+const loadMore = () => {
+	postLimit.value += 6;
+};
 
 function formatDate(value?: string | number | Date) {
 	if (!value) {
