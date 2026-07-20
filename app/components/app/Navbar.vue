@@ -5,7 +5,7 @@
 				<!-- Logo Section -->
 				<div class="flex items-center gap-3">
 					<NuxtLink
-						to="/"
+						:to="localePath('/')"
 						class="flex flex-col gap-0.5"
 					>
 						<div class="text-lg font-bold tracking-tight text-white">
@@ -20,19 +20,19 @@
 				<!-- Main Navigation -->
 				<div class="hidden md:flex items-center gap-1">
 					<NuxtLink
-						to="/"
+						:to="localePath('/')"
 						:class="navLinkClass('/')"
 					>
 						Home
 					</NuxtLink>
 					<NuxtLink
-						to="/about"
+						:to="localePath('/about')"
 						:class="navLinkClass('/about')"
 					>
 						About
 					</NuxtLink>
 					<NuxtLink
-						to="/blog"
+						:to="localePath('/blog')"
 						:class="navLinkClass('/blog')"
 					>
 						Blog
@@ -41,6 +41,15 @@
 
 				<!-- Right Side Actions -->
 				<div class="flex items-center gap-3">
+					<!-- Language Switcher -->
+					<button
+						@click="toggleLanguage"
+						class="px-2 py-1 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
+						aria-label="Toggle Language"
+					>
+						{{ locale === 'en' ? 'العربية' : 'EN' }}
+					</button>
+
 					<!-- Search Icon -->
 					<button
 						class="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900/50 rounded-md transition-all duration-200"
@@ -88,12 +97,19 @@
 
 <script setup lang="ts">
 const route = useRoute();
+const localePath = useLocalePath();
+const { locale, setLocale } = useI18n();
+
+const toggleLanguage = () => {
+	setLocale(locale.value === 'en' ? 'ar' : 'en');
+};
 
 const navLinkClass = (to: string, isHash = false) => {
 	const base = "px-3 py-2 text-sm font-medium rounded-md transition-all duration-200";
+	const targetPath = localePath(to);
 	const active = isHash
-		? route.path === "/" && route.hash === to
-		: route.path === to;
+		? route.path === localePath('/') && route.hash === to
+		: route.path === targetPath;
 
 	return [
 		base,

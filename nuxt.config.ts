@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
 	modules: [
 		"@nuxt/content",
+		"@nuxtjs/i18n",
 		"@nuxt/eslint",
 		"@nuxt/hints",
 		"@nuxt/icon",
@@ -45,6 +46,14 @@ export default defineNuxtConfig({
 				indent: "tab",
 			},
 		},
+	},
+	i18n: {
+		locales: [
+			{ code: "en", language: "en-US", name: "English", dir: "ltr" },
+			{ code: "ar", language: "ar-EG", name: "العربية", dir: "rtl" },
+		],
+		defaultLocale: "en",
+		strategy: "prefix_except_default",
 	},
 	// This configuration tells the module not to reach out to the internet
 	fonts: {
