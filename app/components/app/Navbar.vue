@@ -37,6 +37,12 @@
 					>
 						Blog
 					</NuxtLink>
+					<NuxtLink
+						:to="localePath('/categories')"
+						:class="navLinkClass('/categories')"
+					>
+						Categories
+					</NuxtLink>
 				</div>
 
 				<!-- Right Side Actions -->
