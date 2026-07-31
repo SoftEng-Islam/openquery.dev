@@ -11,6 +11,7 @@ Mathematics is deeply intertwined with computer science. While many developers r
 ## Why Calculus?
 
 Calculus helps us understand changes. Whether it's the rate of change of a variable (derivatives) or the accumulation of quantities (integrals), these concepts are everywhere:
+
 - **Animations:** Easing functions often rely on bezier curves and derivatives.
 - **Physics Engines:** Simulating gravity or velocity requires integration over time.
 - **Machine Learning:** Gradient descent is entirely based on partial derivatives.

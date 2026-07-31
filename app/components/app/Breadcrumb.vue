@@ -18,7 +18,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 		{
 			label: 'Home',
 			path: '/',
-			active: path === '/',
+			active: path === '/' && !route.query.category,
 		},
 	]
 
@@ -40,6 +40,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 		}
 
 		const isLast = index === segments.length - 1
+		const active = isLast && !route.query.category
 
 		// Format label from segment
 		let label = segment
@@ -52,15 +53,23 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 			label = 'Blog'
 		}
 
-		// Only create clickable links for valid routes or last segment
-		const hasValidPath = validRoutes.has(segment) || isLast
+		// Only create clickable links for valid routes or last segment (if not active)
+		const hasValidPath = validRoutes.has(segment) || isLast || segment === 'blog'
 
 		items.push({
 			label,
 			path: hasValidPath ? currentPath : undefined,
-			active: isLast,
+			active,
 		})
 	})
+
+	if (route.query.category) {
+		items.push({
+			label: String(route.query.category),
+			path: undefined,
+			active: true
+		})
+	}
 
 	return items
 })

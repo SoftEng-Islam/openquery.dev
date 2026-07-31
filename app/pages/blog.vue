@@ -152,13 +152,20 @@ const { data: posts } = await useAsyncData("blog-posts-all", async () => {
 	return allPages
 		.filter((page: any) => page.path.startsWith("/blog/"))
 		.sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
-		.map((page: any) => ({
-			title: page.title || "Untitled post",
-			description: page.description || "A new entry from the blog.",
-			path: page.path,
-			date: page.date,
-			category: page.category || "Uncategorized",
-		}));
+		.map((page: any) => {
+			let defaultCategory = "Uncategorized";
+			const segments = page.path.split('/').filter(Boolean);
+			if (segments.length >= 2 && segments[0] === 'blog') {
+				defaultCategory = segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
+			}
+			return {
+				title: page.title || "Untitled post",
+				description: page.description || "A new entry from the blog.",
+				path: page.path,
+				date: page.date,
+				category: page.category || defaultCategory,
+			};
+		});
 });
 
 const categories = computed(() => {

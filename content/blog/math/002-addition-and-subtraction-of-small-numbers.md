@@ -6,5 +6,4 @@ author: Islam Ahmed
 tags:
 ---
 
-# Addition and Subtraction of Small Numbers
-
+## Addition and Subtraction of Small Numbers
