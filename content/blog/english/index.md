@@ -26,10 +26,10 @@ Businesses and large companies increasingly require employees who can speak more
 
 How to Succeed in Learning English? The top tips for success:
 
-- **Daily Practice**: Consistent daily practice is key to improving your skills. Make English a part of your daily routine.
-- **Engage with Your Interests**: Learn English by focusing on topics you already find interesting (such as sports, technology, movies, or hobbies).
-- **Embrace Mistakes**: Don't be afraid of making errors! View mistakes as an integral part of the learning process. Everyone makes them when learning a new language.
-- **Build Confidence**: Focus on developing your confidence to speak and use the language naturally, rather than worrying about perfect grammar.
++ **Daily Practice**: Consistent daily practice is key to improving your skills. Make English a part of your daily routine.
++ **Engage with Your Interests**: Learn English by focusing on topics you already find interesting (such as sports, technology, movies, or hobbies).
++ **Embrace Mistakes**: Don't be afraid of making errors! View mistakes as an integral part of the learning process. Everyone makes them when learning a new language.
++ **Build Confidence**: Focus on developing your confidence to speak and use the language naturally, rather than worrying about perfect grammar.
 
 Keep practicing, stay motivated, and enjoy your journey of learning English!
 

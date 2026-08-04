@@ -47,14 +47,6 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-	i18n: {
-		locales: [
-			{ code: "en", language: "en-US", name: "English", dir: "ltr" },
-			{ code: "ar", language: "ar-EG", name: "العربية", dir: "rtl" },
-		],
-		defaultLocale: "en",
-		strategy: "prefix_except_default",
-	},
 	// This configuration tells the module not to reach out to the internet
 	fonts: {
 		defaults: {
@@ -79,6 +71,14 @@ export default defineNuxtConfig({
 			// Variable fonts are also supported
 			{ name: "Inter Variable", provider: "npm" },
 		],
+	},
+	i18n: {
+		locales: [
+			{ code: "en", language: "en-US", name: "English", dir: "ltr" },
+			{ code: "ar", language: "ar-EG", name: "العربية", dir: "rtl" },
+		],
+		defaultLocale: "en",
+		strategy: "prefix_except_default",
 	},
 	ogImage: {
 		zeroRuntime: true, // Disables dynamic server-side image generation
