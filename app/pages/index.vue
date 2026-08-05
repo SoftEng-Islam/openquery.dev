@@ -17,8 +17,18 @@
 					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors"
 				>
 					<span>Learn about me</span>
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+					<svg
+						class="w-4 h-4"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M13 7l5 5m0 0l-5 5m5-5H6"
+						/>
 					</svg>
 				</NuxtLink>
 				<a
@@ -26,15 +36,29 @@
 					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors border border-zinc-800"
 				>
 					<span>Read articles</span>
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+					<svg
+						class="w-4 h-4"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M19 14l-7 7m0 0l-7-7m7 7V3"
+						/>
 					</svg>
 				</a>
 			</div>
 		</section>
 
 		<!-- Posts Sections by Category -->
-		<div v-if="groupedPosts && groupedPosts.length > 0" class="space-y-16 scroll-mt-20" id="latest-posts">
+		<div
+			v-if="groupedPosts && groupedPosts.length > 0"
+			id="latest-posts"
+			class="space-y-16 scroll-mt-20"
+		>
 			<section
 				v-for="group in groupedPosts"
 				:key="group.category"
@@ -45,11 +69,14 @@
 						<h2 class="text-3xl font-bold text-white">
 							{{ group.category }}
 						</h2>
-						<NuxtLink :to="`/blog?category=${encodeURIComponent(group.category)}`" class="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors">
+						<NuxtLink
+							:to="`/blog?category=${encodeURIComponent(group.category)}`"
+							class="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+						>
 							View all →
 						</NuxtLink>
 					</div>
-					<div class="h-1 w-16 bg-linear-to-r from-emerald-500 to-transparent rounded-full"></div>
+					<div class="h-1 w-16 bg-linear-to-r from-emerald-500 to-transparent rounded-full" />
 				</div>
 
 				<div class="grid gap-6 md:grid-cols-2">
@@ -89,22 +116,42 @@
 							class="inline-flex items-center gap-2 text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors"
 						>
 							<span>Read article</span>
-							<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+							<svg
+								class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 7l5 5m0 0l-5 5m5-5H6"
+								/>
 							</svg>
 						</NuxtLink>
 					</article>
 				</div>
 			</section>
-			
+
 			<div class="mt-8 text-center">
 				<NuxtLink
 					to="/blog"
 					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors border border-zinc-800"
 				>
 					<span>Browse all articles</span>
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+					<svg
+						class="w-4 h-4"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M17 8l4 4m0 0l-4 4m4-4H3"
+						/>
 					</svg>
 				</NuxtLink>
 			</div>
@@ -118,12 +165,15 @@
 		</p>
 
 		<!-- Connect Section -->
-		<section id="connect" class="scroll-mt-20">
+		<section
+			id="connect"
+			class="scroll-mt-20"
+		>
 			<div class="mb-8">
 				<h2 class="text-3xl font-bold text-white mb-2">
 					Let's connect
 				</h2>
-				<div class="h-1 w-16 bg-linear-to-r from-emerald-500 to-transparent rounded-full mb-6"></div>
+				<div class="h-1 w-16 bg-linear-to-r from-emerald-500 to-transparent rounded-full mb-6" />
 				<p class="text-zinc-400 max-w-2xl">
 					I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Find me across the web.
 				</p>
@@ -137,13 +187,19 @@
 					rel="noopener noreferrer"
 					class="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/30 p-6 transition-all duration-500 hover:bg-zinc-900/80 hover:border-zinc-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-900/50"
 				>
-					<div class="absolute inset-0 bg-linear-to-br from-zinc-800/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+					<div class="absolute inset-0 bg-linear-to-br from-zinc-800/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 					<div class="relative z-10 flex flex-col h-full justify-between">
 						<div class="mb-4 flex items-center justify-between">
 							<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-800 text-white transition-transform duration-500 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
-								<Icon name="simple-icons:github" class="h-6 w-6" />
+								<Icon
+									name="simple-icons:github"
+									class="h-6 w-6"
+								/>
 							</div>
-							<Icon name="ph:arrow-up-right-bold" class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-white" />
+							<Icon
+								name="ph:arrow-up-right-bold"
+								class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-white"
+							/>
 						</div>
 						<div>
 							<h3 class="text-lg font-bold text-white mb-1">GitHub</h3>
@@ -159,13 +215,19 @@
 					rel="noopener noreferrer"
 					class="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/30 p-6 transition-all duration-500 hover:bg-zinc-900/80 hover:border-zinc-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-900/50"
 				>
-					<div class="absolute inset-0 bg-linear-to-br from-zinc-800/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+					<div class="absolute inset-0 bg-linear-to-br from-zinc-800/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 					<div class="relative z-10 flex flex-col h-full justify-between">
 						<div class="mb-4 flex items-center justify-between">
 							<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-800 text-white transition-transform duration-500 group-hover:scale-110 group-hover:bg-[#1DA1F2] group-hover:text-white">
-								<Icon name="simple-icons:x" class="h-5 w-5" />
+								<Icon
+									name="simple-icons:x"
+									class="h-5 w-5"
+								/>
 							</div>
-							<Icon name="ph:arrow-up-right-bold" class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-white" />
+							<Icon
+								name="ph:arrow-up-right-bold"
+								class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-white"
+							/>
 						</div>
 						<div>
 							<h3 class="text-lg font-bold text-white mb-1">X (Twitter)</h3>
@@ -176,16 +238,22 @@
 
 				<!-- Email / Contact Card -->
 				<a
-					href="mailto:hello@openquery.dev"
+					href="mailto:softeng.islam@gmail.com"
 					class="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/30 p-6 transition-all duration-500 hover:bg-zinc-900/80 hover:border-emerald-500/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/10"
 				>
-					<div class="absolute inset-0 bg-linear-to-br from-emerald-500/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+					<div class="absolute inset-0 bg-linear-to-br from-emerald-500/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 					<div class="relative z-10 flex flex-col h-full justify-between">
 						<div class="mb-4 flex items-center justify-between">
 							<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-800 text-white transition-transform duration-500 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white">
-								<Icon name="ph:envelope-simple-bold" class="h-6 w-6" />
+								<Icon
+									name="ph:envelope-simple-bold"
+									class="h-6 w-6"
+								/>
 							</div>
-							<Icon name="ph:arrow-right-bold" class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-emerald-400" />
+							<Icon
+								name="ph:arrow-right-bold"
+								class="h-5 w-5 text-zinc-500 transition-colors duration-300 group-hover:text-emerald-400"
+							/>
 						</div>
 						<div>
 							<h3 class="text-lg font-bold text-white mb-1">Email Me</h3>

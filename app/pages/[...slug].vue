@@ -15,7 +15,7 @@ const readingTime = computed(() => {
 
 	const wordCount = page.value.body.children
 		.reduce((acc: number, node: any) => {
-			if (node.type === 'text') return acc + node.value?.split(/\s+/).length || 0;
+			if (node.type === "text") return acc + node.value?.split(/\s+/).length || 0;
 			if (node.children) return acc + node.children.reduce((childAcc: number, child: any) => {
 				return childAcc + (child.value?.split(/\s+/).length || 0);
 			}, 0);
@@ -92,27 +92,34 @@ function formatDate(value?: string | number | Date) {
 		</header>
 
 		<!-- Article Content -->
-		<div class="prose prose-invert max-w-none mb-12">
+		<article class="prose prose-invert max-w-none mb-12 dark:prose-invert">
 			<ContentRenderer
 				v-if="page"
 				:value="page"
 				class="prose-headings:text-white prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-p:text-zinc-300 prose-p:leading-relaxed prose-p:mb-4 prose-a:text-emerald-400 hover:prose-a:text-emerald-300 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-emerald-300 prose-code:bg-zinc-900 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-blockquote:border-l-emerald-500 prose-blockquote:text-zinc-300 prose-blockquote:italic prose-ul:text-zinc-300 prose-ol:text-zinc-300 prose-li:mb-2"
 			/>
-		</div>
+		</article>
 
 		<!-- Article Footer -->
 		<footer class="pt-8 border-t border-zinc-800">
 			<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
 				<!-- Author Info -->
-				<div v-if="page?.author" class="flex items-center gap-4">
+				<div
+					v-if="page?.author"
+					class="flex items-center gap-4"
+				>
 					<div class="w-12 h-12 rounded-full bg-linear-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
 						<span class="text-white font-semibold text-sm">
 							{{ page.author.charAt(0).toUpperCase() }}
 						</span>
 					</div>
 					<div>
-						<div class="text-white font-medium">{{ page.author }}</div>
-						<div class="text-sm text-zinc-400">Article author</div>
+						<div class="text-white font-medium">
+							{{ page.author }}
+						</div>
+						<div class="text-sm text-zinc-400">
+							Article author
+						</div>
 					</div>
 				</div>
 

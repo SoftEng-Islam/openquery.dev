@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 		"@nuxt/icon",
 		"@nuxt/fonts",
 		"@nuxt/image",
-		"@nuxtjs/google-fonts",
+		// "@nuxtjs/google-fonts",
 		"@nuxtjs/seo",
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
