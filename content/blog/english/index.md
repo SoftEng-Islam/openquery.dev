@@ -32,6 +32,3 @@ How to Succeed in Learning English? The top tips for success:
 + **Build Confidence**: Focus on developing your confidence to speak and use the language naturally, rather than worrying about perfect grammar.
 
 Keep practicing, stay motivated, and enjoy your journey of learning English!
-
-- 1
-- 2
