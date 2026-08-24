@@ -66,12 +66,15 @@
 				>
 					<!-- Date and Metadata -->
 					<div class="flex flex-wrap items-center gap-3 text-xs text-zinc-400 mb-4">
-						<span
-							v-if="post.category && post.category !== 'Uncategorized'"
-							class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-						>
-							{{ post.category }}
-						</span>
+						<template v-if="post.categories && post.categories.length > 0 && post.categories[0] !== 'Uncategorized'">
+							<span
+								v-for="cat in post.categories"
+								:key="cat"
+								class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 capitalize"
+							>
+								{{ cat }}
+							</span>
+						</template>
 						<time :datetime="post.date">
 							{{ formatDate(post.date) }}
 						</time>
@@ -158,19 +161,25 @@ const { data: posts } = await useAsyncData("blog-posts-all", async () => {
 			if (segments.length >= 2 && segments[0] === 'blog') {
 				defaultCategory = segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
 			}
+			
+			const categories = normalizeCategories(page.category);
+			if (categories.length === 0) {
+				categories.push(defaultCategory);
+			}
+
 			return {
 				title: page.title || "Untitled post",
 				description: page.description || "A new entry from the blog.",
 				path: page.path,
 				date: page.date,
-				category: page.category || defaultCategory,
+				categories: categories,
 			};
 		});
 });
 
 const categories = computed(() => {
 	if (!posts.value) return [];
-	const cats = new Set(posts.value.map(post => post.category).filter(c => c !== "Uncategorized"));
+	const cats = new Set(posts.value.flatMap(post => post.categories).filter(c => c !== "Uncategorized"));
 	return Array.from(cats).sort();
 });
 
@@ -179,7 +188,7 @@ const displayedCategories = computed(() => categories.value.slice(0, 4));
 const filteredPosts = computed(() => {
 	if (!posts.value) return [];
 	if (activeCategory.value === "All") return posts.value;
-	return posts.value.filter(post => post.category === activeCategory.value);
+	return posts.value.filter(post => post.categories.includes(activeCategory.value));
 });
 
 const postLimit = ref(6);

@@ -6,7 +6,7 @@ export default defineContentConfig({
 			type: "page",
 			source: "**",
 			schema: z.object({
-				category: z.string().optional(),
+				category: z.union([z.string(), z.array(z.string())]).optional(),
 				author: z.string().optional(),
 			}),
 		}),

@@ -27,8 +27,8 @@
 							<span class="text-emerald-400/60 group-hover:text-emerald-400 transition text-xs font-mono mt-0.5">→</span>
 							<div>
 								<div class="flex items-center gap-2 mb-1">
-									<span v-if="post.category && post.category !== 'Uncategorized'" class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 leading-none">
-										{{ post.category }}
+									<span v-if="post.primaryCategory && post.primaryCategory !== 'Uncategorized'" class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 leading-none capitalize">
+										{{ post.primaryCategory }}
 									</span>
 									<p class="text-xs text-zinc-500 leading-none">
 										{{ formatDate(post.date) }}
@@ -146,13 +146,18 @@ const { data: posts } = await useAsyncData("blog-posts", async () => {
 	return allPages
 		.filter((page: any) => page.path.startsWith("/blog/"))
 		.sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
-		.map((page: any) => ({
-			title: page.title || "Untitled post",
-			description: page.description || "A new entry from the blog.",
-			path: page.path,
-			date: page.date,
-			category: page.category || "Uncategorized",
-		}));
+		.map((page: any) => {
+			const categories = normalizeCategories(page.category);
+			const primaryCategory = categories.length > 0 ? categories[0] : "Uncategorized";
+
+			return {
+				title: page.title || "Untitled post",
+				description: page.description || "A new entry from the blog.",
+				path: page.path,
+				date: page.date,
+				primaryCategory: primaryCategory,
+			};
+		});
 });
 
 function formatDate(value?: string | number | Date) {

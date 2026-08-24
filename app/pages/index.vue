@@ -53,6 +53,24 @@
 			</div>
 		</section>
 
+		<!-- Carousel with next/prev buttons -->
+		<section class="mb-12">
+			<ul>
+				<li class="">
+					1
+				</li>
+				<li class="">
+					2
+				</li>
+				<li class="">
+					3
+				</li>
+				<li class="">
+					4
+				</li>
+			</ul>
+		</section>
+
 		<!-- Posts Sections by Category -->
 		<div
 			v-if="groupedPosts && groupedPosts.length > 0"

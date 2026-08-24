@@ -52,9 +52,16 @@
 				<!-- Card body -->
 				<div class="p-4 flex flex-col flex-grow">
 					<!-- Topic name -->
-					<h2 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-3 capitalize">
+					<h2 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-2 capitalize">
 						{{ group.category }}
 					</h2>
+
+					<!-- Subcategories tags -->
+					<div v-if="group.subcategories && group.subcategories.length > 0" class="flex flex-wrap gap-1.5 mb-3">
+						<span v-for="sub in group.subcategories" :key="sub" class="px-2 py-0.5 text-[10px] font-medium rounded bg-zinc-800 text-zinc-400 border border-zinc-700 capitalize">
+							{{ sub }}
+						</span>
+					</div>
 
 					<!-- Recent lesson titles preview -->
 					<ul class="space-y-1.5 flex-grow">
@@ -99,23 +106,35 @@ const { data: groupedByCategory } = await useAsyncData("categories-playlist", as
 			if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
 			return new Date(a.date || 0).getTime() - new Date(b.date || 0).getTime();
 		})
-		.map((page: any) => ({
-			title: page.title || "Untitled",
-			description: page.description || "",
-			path: page.path,
-			date: page.date,
-			category: page.category || "Uncategorized",
-		}));
+		.map((page: any) => {
+			const categories = normalizeCategories(page.category);
+			const primaryCategory = categories.length > 0 ? categories[0] : "Uncategorized";
+			
+			return {
+				title: page.title || "Untitled",
+				description: page.description || "",
+				path: page.path,
+				date: page.date,
+				categories: categories,
+				primaryCategory: primaryCategory,
+			};
+		});
 
-	const grouped: Record<string, any[]> = {};
+	const grouped: Record<string, { posts: any[], subcategories: Set<string> }> = {};
 	for (const post of posts) {
-		if (post.category === "Uncategorized") continue;
-		if (!grouped[post.category]) grouped[post.category] = [];
-		grouped[post.category].push(post);
+		if (post.primaryCategory === "Uncategorized") continue;
+		if (!grouped[post.primaryCategory]) {
+			grouped[post.primaryCategory] = { posts: [], subcategories: new Set() };
+		}
+		grouped[post.primaryCategory].posts.push(post);
+		
+		for (let i = 1; i < post.categories.length; i++) {
+			grouped[post.primaryCategory].subcategories.add(post.categories[i]);
+		}
 	}
 
 	return Object.entries(grouped)
-		.map(([category, posts]) => ({ category, posts }))
+		.map(([category, data]) => ({ category, posts: data.posts, subcategories: Array.from(data.subcategories) }))
 		.sort((a, b) => b.posts.length - a.posts.length || a.category.localeCompare(b.category));
 });
 
