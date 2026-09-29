@@ -29,21 +29,11 @@
   languages.javascript.nodejs.enable = true;
   languages.javascript.pnpm.enable = true;
 
-  # https://devenv.sh/processes/
-  # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
-
-  # https://devenv.sh/services/
-  # services.postgres.enable = true;
-
-  # https://devenv.sh/scripts/
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
-
   # https://devenv.sh/basics/
   enterShell = ''
     hello         # Run scripts directly
     git --version # Use packages
+    echo "hello Dev"
   '';
 
   # https://devenv.sh/tasks/
