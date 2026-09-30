@@ -9,19 +9,23 @@ if (!page.value) {
 	throw createError({ statusCode: 404, statusMessage: "Page not found", fatal: true });
 }
 
-// Calculate reading time (rough estimate: 200 words per minute)
+// Count words in a minimark node: either a string or [tag, props, ...children]
+function countWords(node: unknown): number {
+	if (typeof node === "string") {
+		return node.split(/\s+/).filter(Boolean).length;
+	}
+	if (Array.isArray(node)) {
+		return node.slice(2).reduce((sum: number, child: unknown) => sum + countWords(child), 0);
+	}
+	return 0;
+}
+
+// Reading time (rough estimate: 200 words per minute)
 const readingTime = computed(() => {
-	if (!page.value?.body?.children) return "5 min read";
+	const nodes = (page.value?.body as { value?: unknown } | undefined)?.value;
+	if (!Array.isArray(nodes)) return "1 min read";
 
-	const wordCount = page.value.body.children
-		.reduce((acc: number, node: any) => {
-			if (node.type === "text") return acc + node.value?.split(/\s+/).length || 0;
-			if (node.children) return acc + node.children.reduce((childAcc: number, child: any) => {
-				return childAcc + (child.value?.split(/\s+/).length || 0);
-			}, 0);
-			return acc;
-		}, 0);
-
+	const wordCount = nodes.reduce((sum: number, node: unknown) => sum + countWords(node), 0);
 	const minutes = Math.max(1, Math.round(wordCount / 200));
 	return `${minutes} min read`;
 });
@@ -32,7 +36,7 @@ useSeoMeta({
 	ogTitle: page.value?.title || "OpenQuery",
 	ogDescription: page.value?.description || "A web development blog",
 	ogType: "article",
-	articleAuthor: page.value?.author || "Islam Ahmed",
+	articleAuthor: [page.value?.author || "Islam Ahmed"],
 	articlePublishedTime: page.value?.date
 		? new Date(page.value.date).toISOString()
 		: undefined,
@@ -68,13 +72,12 @@ function formatDate(value?: string | number | Date) {
 		<header class="mb-8 pb-8 border-b border-zinc-800">
 			<!-- Meta Info -->
 			<div class="flex flex-wrap items-center gap-4 text-sm text-zinc-400 mb-6">
-				<time
-					v-if="page?.date"
-					:datetime="new Date(page.date).toISOString()"
-				>
-					{{ new Date(page.date).toLocaleDateString('en', { dateStyle: 'long' }) }}
-				</time>
-				<span class="text-zinc-600">·</span>
+				<template v-if="page?.date">
+					<time :datetime="new Date(page.date).toISOString()">
+						{{ formatDate(page.date) }}
+					</time>
+					<span class="text-zinc-600">·</span>
+				</template>
 				<span>{{ readingTime }}</span>
 				<template v-if="page?.author">
 					<span class="text-zinc-600">·</span>
