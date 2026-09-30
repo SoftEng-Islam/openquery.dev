@@ -33,7 +33,9 @@ useSeoMeta({
 	ogDescription: page.value?.description || "A web development blog",
 	ogType: "article",
 	articleAuthor: page.value?.author || "Islam Ahmed",
-	articlePublishedTime: page.value?.date?.toISOString() || new Date().toISOString(),
+	articlePublishedTime: page.value?.date
+		? new Date(page.value.date).toISOString()
+		: undefined,
 	twitterTitle: page.value?.title || "OpenQuery",
 	twitterDescription: page.value?.description || "A web development blog",
 });
@@ -66,8 +68,11 @@ function formatDate(value?: string | number | Date) {
 		<header class="mb-8 pb-8 border-b border-zinc-800">
 			<!-- Meta Info -->
 			<div class="flex flex-wrap items-center gap-4 text-sm text-zinc-400 mb-6">
-				<time :datetime="page?.date">
-					{{ formatDate(page?.date) }}
+				<time
+					v-if="page?.date"
+					:datetime="new Date(page.date).toISOString()"
+				>
+					{{ new Date(page.date).toLocaleDateString('en', { dateStyle: 'long' }) }}
 				</time>
 				<span class="text-zinc-600">·</span>
 				<span>{{ readingTime }}</span>
