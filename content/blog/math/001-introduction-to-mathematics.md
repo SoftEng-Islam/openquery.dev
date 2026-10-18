@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Mathematics"
+title: "002- Addition & Subtraction of small numbers"
 description: "A short 120-160 character summary used for SEO and article cards."
 date: 2026-07-09
 updated: 2026-07-09
@@ -13,5 +13,5 @@ featured: false
 lang: "en"
 ---
 
-## Introduction to Mathematics
+## Addition & Subtraction of small numbers
 

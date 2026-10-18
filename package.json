@@ -12,6 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@comark/nuxt": "0.7.0",
     "@nuxt/content": "^3.14.0",
     "@nuxt/eslint": "1.16.0",
     "@nuxt/fonts": "0.14.0",

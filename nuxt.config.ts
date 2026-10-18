@@ -14,6 +14,7 @@ export default defineNuxtConfig({
 		"@nuxtjs/seo",
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
+		"@comark/nuxt",
 	],
 	devtools: { enabled: true },
 	app: {
