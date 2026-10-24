@@ -56,11 +56,11 @@
 		<!-- Posts Grid -->
 		<section>
 			<div
-				v-if="limitedPosts && limitedPosts.length > 0"
+				v-if="pagedPosts && pagedPosts.length > 0"
 				class="grid gap-6 md:grid-cols-2"
 			>
 				<article
-					v-for="post in limitedPosts"
+					v-for="post in pagedPosts"
 					:key="post.path"
 					class="group rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 p-6 transition-all duration-300 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 flex flex-col"
 				>
@@ -122,14 +122,57 @@
 				No posts found in this category.
 			</p>
 
-			<div v-if="hasMorePosts" class="mt-12 text-center">
+			<!-- Pagination -->
+			<nav
+				v-if="totalPages > 1"
+				ref="paginationRef"
+				class="mt-12 flex items-center justify-center gap-1"
+				aria-label="Blog pagination"
+			>
+				<!-- Prev -->
 				<button
-					@click="loadMore"
-					class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition-colors border border-zinc-800"
+					:disabled="currentPage === 1"
+					class="pagination-btn pagination-btn--arrow"
+					aria-label="Previous page"
+					@click="goToPage(currentPage - 1)"
 				>
-					Load more posts
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+					</svg>
 				</button>
-			</div>
+
+				<!-- Page numbers -->
+				<template v-for="item in pageItems" :key="item">
+					<span v-if="item === '...'" class="px-2 text-zinc-500 select-none">…</span>
+					<button
+						v-else
+						:aria-label="`Page ${item}`"
+						:aria-current="currentPage === item ? 'page' : undefined"
+						class="pagination-btn"
+						:class="{ 'pagination-btn--active': currentPage === item }"
+						@click="goToPage(item as number)"
+					>
+						{{ item }}
+					</button>
+				</template>
+
+				<!-- Next -->
+				<button
+					:disabled="currentPage === totalPages"
+					class="pagination-btn pagination-btn--arrow"
+					aria-label="Next page"
+					@click="goToPage(currentPage + 1)"
+				>
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</button>
+			</nav>
+
+			<!-- Page info -->
+			<p v-if="totalPages > 1" class="mt-4 text-center text-sm text-zinc-500">
+				Page {{ currentPage }} of {{ totalPages }} · {{ filteredPosts.length }} articles
+			</p>
 		</section>
 	</div>
 </template>
@@ -137,93 +180,230 @@
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const activeCategory = ref(route.query.category ? String(route.query.category) : "All");
 
-watch(() => route.query.category, (newCategory) => {
-	activeCategory.value = newCategory ? String(newCategory) : "All";
-});
+// ── Category filter ──────────────────────────────────────────────────────────
+const activeCategory = ref(
+  route.query.category ? String(route.query.category) : "All",
+);
+
+watch(
+  () => route.query.category,
+  (newCategory) => {
+    activeCategory.value = newCategory ? String(newCategory) : "All";
+  },
+);
 
 const setCategory = (category: string) => {
-	activeCategory.value = category;
-	router.push({ query: category === 'All' ? undefined : { category } });
-	postLimit.value = 6;
+  activeCategory.value = category;
+  // Reset to page 1 and update URL
+  router.push({
+    query: {
+      ...(category !== "All" ? { category } : {}),
+    },
+  });
+  currentPage.value = 1;
 };
 
+// ── Data ─────────────────────────────────────────────────────────────────────
 const { data: posts } = await useAsyncData("blog-posts-all", async () => {
-	const allPages = await queryCollection("content").all();
+  const allPages = await queryCollection("content").all();
 
-	return allPages
-		.filter((page: any) => page.path.startsWith("/blog/"))
-		.sort((a: any, b: any) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())
-		.map((page: any) => {
-			let defaultCategory = "Uncategorized";
-			const segments = page.path.split('/').filter(Boolean);
-			if (segments.length >= 2 && segments[0] === 'blog') {
-				defaultCategory = segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
-			}
-			
-			const categories = normalizeCategories(page.category);
-			if (categories.length === 0) {
-				categories.push(defaultCategory);
-			}
+  return allPages
+    .filter((page: any) => page.path.startsWith("/blog/"))
+    .sort(
+      (a: any, b: any) =>
+        new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime(),
+    )
+    .map((page: any) => {
+      let defaultCategory = "Uncategorized";
+      const segments = page.path.split("/").filter(Boolean);
+      if (segments.length >= 2 && segments[0] === "blog") {
+        defaultCategory =
+          segments[1].charAt(0).toUpperCase() + segments[1].slice(1);
+      }
 
-			return {
-				title: page.title || "Untitled post",
-				description: page.description || "A new entry from the blog.",
-				path: page.path,
-				date: page.date,
-				categories: categories,
-			};
-		});
+      const categories = normalizeCategories(page.category);
+      if (categories.length === 0) {
+        categories.push(defaultCategory);
+      }
+
+      return {
+        title: page.title || "Untitled post",
+        description: page.description || "A new entry from the blog.",
+        path: page.path,
+        date: page.date,
+        categories: categories,
+      };
+    });
 });
 
+// ── Derived ──────────────────────────────────────────────────────────────────
 const categories = computed(() => {
-	if (!posts.value) return [];
-	const cats = new Set(posts.value.flatMap(post => post.categories).filter(c => c !== "Uncategorized"));
-	return Array.from(cats).sort();
+  if (!posts.value) return [];
+  const cats = new Set(
+    posts.value
+      .flatMap((post) => post.categories)
+      .filter((c) => c !== "Uncategorized"),
+  );
+  return Array.from(cats).sort();
 });
 
 const displayedCategories = computed(() => categories.value.slice(0, 4));
 
 const filteredPosts = computed(() => {
-	if (!posts.value) return [];
-	if (activeCategory.value === "All") return posts.value;
-	return posts.value.filter(post => post.categories.includes(activeCategory.value));
+  if (!posts.value) return [];
+  if (activeCategory.value === "All") return posts.value;
+  return posts.value.filter((post) =>
+    post.categories.includes(activeCategory.value),
+  );
 });
 
-const postLimit = ref(6);
-const limitedPosts = computed(() => filteredPosts.value.slice(0, postLimit.value));
-const hasMorePosts = computed(() => filteredPosts.value.length > postLimit.value);
+// ── Pagination ───────────────────────────────────────────────────────────────
+const PAGE_SIZE = 6;
+const paginationRef = ref<HTMLElement | null>(null);
 
-const loadMore = () => {
-	postLimit.value += 6;
-};
+const currentPage = ref(
+  route.query.page ? Math.max(1, Number(route.query.page)) : 1,
+);
 
+// Keep currentPage in sync when the URL `page` param changes externally
+watch(
+  () => route.query.page,
+  (p) => {
+    currentPage.value = p ? Math.max(1, Number(p)) : 1;
+  },
+);
+
+// Reset to page 1 whenever the filter changes
+watch(filteredPosts, () => {
+  currentPage.value = 1;
+});
+
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(filteredPosts.value.length / PAGE_SIZE)),
+);
+
+const pagedPosts = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE;
+  return filteredPosts.value.slice(start, start + PAGE_SIZE);
+});
+
+/** Builds the page number list with "..." ellipsis for large page counts */
+const pageItems = computed<(number | "...")[]>(() => {
+  const total = totalPages.value;
+  const current = currentPage.value;
+
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const items: (number | "...")[] = [1];
+
+  if (current > 3) items.push("...");
+
+  const rangeStart = Math.max(2, current - 1);
+  const rangeEnd = Math.min(total - 1, current + 1);
+
+  for (let i = rangeStart; i <= rangeEnd; i++) items.push(i);
+
+  if (current < total - 2) items.push("...");
+
+  items.push(total);
+  return items;
+});
+
+function goToPage(page: number) {
+  if (page < 1 || page > totalPages.value) return;
+  currentPage.value = page;
+
+  // Sync URL
+  router.push({
+    query: {
+      ...(activeCategory.value !== "All"
+        ? { category: activeCategory.value }
+        : {}),
+      ...(page > 1 ? { page: String(page) } : {}),
+    },
+  });
+
+  // Scroll the grid back into view
+  nextTick(() => {
+    paginationRef.value?.closest("section")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
 function formatDate(value?: string | number | Date) {
-	if (!value) {
-		return "Recently published";
-	}
+  if (!value) {
+    return "Recently published";
+  }
 
-	return new Date(value).toLocaleDateString("en", {
-		month: "short",
-		day: "numeric",
-		year: "numeric",
-	});
+  return new Date(value).toLocaleDateString("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function estimateReadTime(text?: string) {
-	if (!text) return "3 min read";
-	const wordCount = text.split(/\s+/).length;
-	const minutes = Math.max(1, Math.round(wordCount / 200));
-	return `${minutes} min read`;
+  if (!text) return "3 min read";
+  const wordCount = text.split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(wordCount / 200));
+  return `${minutes} min read`;
 }
 
 useSeoMeta({
-	title: "Blog • OpenQuery",
-	description: "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
-	ogTitle: "Blog • OpenQuery",
-	ogDescription: "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
-	twitterTitle: "Blog • OpenQuery",
-	twitterDescription: "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
+  title: "Blog • OpenQuery",
+  description:
+    "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
+  ogTitle: "Blog • OpenQuery",
+  ogDescription:
+    "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
+  twitterTitle: "Blog • OpenQuery",
+  twitterDescription:
+    "Explore the latest web development tutorials, guides, and thoughts by Islam Ahmed.",
 });
 </script>
+
+<style scoped>
+.pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(39 39 42); /* zinc-800 */
+  background: rgb(24 24 27 / 0.4);
+  color: rgb(161 161 170); /* zinc-400 */
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+.pagination-btn:hover:not(:disabled) {
+  background: rgb(39 39 42); /* zinc-800 */
+  border-color: rgb(63 63 70); /* zinc-700 */
+  color: #fff;
+}
+.pagination-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.pagination-btn--active {
+  background: rgb(16 185 129 / 0.15); /* emerald-500/15 */
+  border-color: rgb(16 185 129 / 0.5); /* emerald-500/50 */
+  color: rgb(52 211 153); /* emerald-400 */
+}
+.pagination-btn--arrow {
+  color: rgb(113 113 122); /* zinc-500 */
+}
+</style>
+
