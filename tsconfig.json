@@ -1,8 +1,16 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "files": [],
-    "compilerOptions": {
-    "types": ["node"]
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "references": [
     {

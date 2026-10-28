@@ -10,11 +10,12 @@ export default defineNuxtConfig({
 		"@nuxt/icon",
 		"@nuxt/fonts",
 		"@nuxt/image",
-		// "@nuxtjs/google-fonts",
 		"@nuxtjs/seo",
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
 		"@comark/nuxt",
+		"shadcn-nuxt",
+		// "@nuxtjs/google-fonts",
 	],
 	devtools: { enabled: true },
 	app: {
@@ -83,5 +84,16 @@ export default defineNuxtConfig({
 	},
 	ogImage: {
 		zeroRuntime: true, // Disables dynamic server-side image generation
+	},
+	shadcn: {
+		/**
+	 * Prefix for all the imported component
+	 */
+		prefix: "",
+		/**
+	 * Directory that the component lives in.
+	 * @default "./components/ui"
+	 */
+		componentDir: "./components/ui",
 	},
 });
