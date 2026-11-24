@@ -82,5 +82,11 @@
 		"**/.gitea/workflows/*.yaml",
 		"**/.forgejo/workflows/*.yml",
 		"**/.forgejo/workflows/*.yaml"
-	]
+	],
+	"editor.formatOnSaveMode": "file",
+	"editor.formatOnType": true,
+	"js/ts.format.enabled": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
 }

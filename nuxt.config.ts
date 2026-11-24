@@ -81,14 +81,17 @@ export default defineNuxtConfig({
 	},
 	shadcn: {
 		/**
-	 * Prefix for all the imported component
-	 */
+		 * Prefix for all the imported component.
+		 * @default "Ui"
+		 */
 		prefix: "",
 		/**
-	 * Directory that the component lives in.
-	 * @default "./components/ui"
-	 */
-		componentDir: "./components/ui",
+		 * Directory that the component lives in.
+		 * Will respect the Nuxt aliases.
+		 * @link https://nuxt.com/docs/api/nuxt-config#alias
+		 * @default "@/components/ui"
+		 */
+		componentDir: "@/components/ui",
 	},
 	content: {
 		build: {
@@ -96,6 +99,14 @@ export default defineNuxtConfig({
 				remarkPlugins: { 'remark-math': {} },
 				rehypePlugins: { 'rehype-katex': {} },
 			},
+		},
+	},
+	hooks: {
+		'vite:extendConfig'(config) {
+			const include = config.optimizeDeps?.include
+			if (include) {
+			config.optimizeDeps!.include = include.filter(d => !d.startsWith('@nuxtjs/mdc >'))
+			}
 		},
 	},
 });

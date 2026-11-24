@@ -1,29 +1,29 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
-  "files": [],
-  "compilerOptions": {
-    "types": [
-      "node"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
-  },
-  "references": [
-    {
-      "path": "./.nuxt/tsconfig.app.json"
-    },
-    {
-      "path": "./.nuxt/tsconfig.server.json"
-    },
-    {
-      "path": "./.nuxt/tsconfig.shared.json"
-    },
-    {
-      "path": "./.nuxt/tsconfig.node.json"
-    }
-  ]
+	// https://nuxt.com/docs/guide/concepts/typescript
+	"files": [],
+	"compilerOptions": {
+		"strict": true,
+		"types": [
+			"node"
+		],
+		"paths": {
+			"@/*": [
+				"./*"
+			]
+		}
+	},
+	"references": [
+		{
+			"path": "./.nuxt/tsconfig.app.json"
+		},
+		{
+			"path": "./.nuxt/tsconfig.server.json"
+		},
+		{
+			"path": "./.nuxt/tsconfig.shared.json"
+		},
+		{
+			"path": "./.nuxt/tsconfig.node.json"
+		}
+	]
 }
