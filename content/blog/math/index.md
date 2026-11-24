@@ -24,12 +24,12 @@ Together we'll start with the very first numbers and climb, one small step at a 
 
 ## Start Here 👇
 
-New to the course? Begin with [the Introduction](/math/intro), then move on to the first section.
+New to the course? Begin with [the Introduction](/math/001-introduction-to-mathematics), then move on to the first section.
 
 ## The Roadmap
 
-1. [**Arithmetic**](/math/arithmetic): numbers, operations, fractions, and percentages
-2. [**Algebra**](/math/algebra): finding the unknown with $x$
+1. [**Arithmetic**](/math/002-addition-and-subtraction-of-small-numbers): numbers, operations, fractions, and percentages
+2. [**Algebra**](/math/): finding the unknown with $x$
 3. **Geometry**: shapes, angles, and area
 4. **Trigonometry**: the secrets of $\sin\theta$ and $\cos\theta$
 5. **Probability and Statistics**: making sense of chance
@@ -37,4 +37,4 @@ New to the course? Begin with [the Introduction](/math/intro), then move on to t
 7. **Linear Algebra**: vectors and matrices
 8. **Advanced Topics**: number theory, proofs, and discrete math
 
-Ready? [Let's begin with the Introduction!](/math/intro) ✨
+Ready? [Let's begin with the Introduction!](/math/001-introduction-to-mathematics) ✨
