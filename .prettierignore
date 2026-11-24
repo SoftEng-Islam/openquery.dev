@@ -1,0 +1,13 @@
+# Build outputs
+.nuxt/
+.output/
+dist/
+
+# Dependencies
+node_modules/
+
+# Generated / lock files
+pnpm-lock.yaml
+
+# Assets that should not be reformatted
+public/

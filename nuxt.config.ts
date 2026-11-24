@@ -14,8 +14,7 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
 		"@comark/nuxt",
-		"shadcn-nuxt",
-		// "@nuxtjs/google-fonts",
+		"shadcn-nuxt"
 	],
 	devtools: { enabled: true },
 	app: {
@@ -41,12 +40,7 @@ export default defineNuxtConfig({
 	},
 	eslint: {
 		config: {
-			stylistic: {
-				semi: true,
-				quotes: "double",
-				commaDangle: "always-multiline",
-				indent: "tab",
-			},
+			stylistic: false,
 		},
 	},
 	// This configuration tells the module not to reach out to the internet
