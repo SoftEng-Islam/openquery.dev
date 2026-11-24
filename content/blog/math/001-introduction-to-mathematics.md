@@ -82,9 +82,9 @@ Every mathematical question like this has a completely clear-cut answer:
 
 A mathematician's job is to ask questions like these, then invent the tools to answer them. The answers themselves are fixed, out of our hands, woven into the fabric of reality, and often wonderfully surprising. Is there more than one kind of infinity? **Yes!** In fact, there are infinitely many different kinds of infinity, a staircase that never ends:
 
-$$
-\aleph_0 < \aleph_1 < \aleph_2 < \cdots
-$$
+   $$
+   \aleph_0 \lt \aleph_1 \lt \aleph_2 \lt \cdots
+   $$
 
 Humans didn't decide that. We just got curious enough to ask. ✨
 

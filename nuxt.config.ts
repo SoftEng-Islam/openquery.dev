@@ -21,7 +21,7 @@ export default defineNuxtConfig({
 		pageTransition: { name: "page", mode: "out-in" },
 		baseURL: process.env.NUXT_APP_BASE_URL || "/",
 	},
-	css: ["~/assets/css/main.css"],
+	css: ["~/assets/css/main.css", 'katex/dist/katex.min.css'],
 	site: {
 		url: process.env.NUXT_PUBLIC_SITE_URL || "https://openquery.dev",
 		name: "OpenQuery",
@@ -89,5 +89,13 @@ export default defineNuxtConfig({
 	 * @default "./components/ui"
 	 */
 		componentDir: "./components/ui",
+	},
+	content: {
+		build: {
+			markdown: {
+				remarkPlugins: { 'remark-math': {} },
+				rehypePlugins: { 'rehype-katex': {} },
+			},
+		},
 	},
 });
