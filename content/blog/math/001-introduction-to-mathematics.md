@@ -71,7 +71,7 @@ Even science works a little differently. If we repeat an experiment again and ag
 
 Try this: draw a circle and look at the angle between a radius and a tangent line. You'll find $90^\circ$, or you'll have made a mistake. There's no in-between!
 
-![A circle with center O. The radius OP and the tangent line at P meet at a right angle of 90 degrees.](/images/articles/001-intro/circle-tangent.svg)
+![A circle with center O. The radius OP and the tangent line at P meet at a right angle of 90 degrees.](/img/circle-tangent.jpg)
 
 Every mathematical question like this has a completely clear-cut answer:
 
