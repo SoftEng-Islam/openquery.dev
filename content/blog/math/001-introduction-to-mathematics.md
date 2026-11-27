@@ -6,7 +6,7 @@ updated: 2026-11-24
 author: "Islam Ahmed"
 category: "Mathematics"
 tags: ["math", "basics", "introduction"]
-image: "/images/articles/intro-math.webp"
+image: "/img/intro-math-background.svg"
 imageAlt: "A circle with a radius and a tangent line meeting at a right angle"
 draft: false
 featured: false
