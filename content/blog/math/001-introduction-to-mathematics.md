@@ -98,7 +98,7 @@ In this course, we'll ask questions, then build the tools to answer them, one st
 
 We'll begin with the most basic math there is, the kind people developed at the dawn of civilization, and climb all the way through high school math and well into university level:
 
-![Course roadmap: Arithmetic, Algebra, Geometry, Trigonometry, Probability and Statistics, Calculus, Linear Algebra, and Advanced topics.](/images/articles/001-intro/course-roadmap.svg)
+![Course roadmap: Arithmetic, Algebra, Geometry, Trigonometry, Probability and Statistics, Calculus, Linear Algebra, and Advanced topics.](/img/course-roadmap.svg)
 
 1. Arithmetic
 2. Algebra

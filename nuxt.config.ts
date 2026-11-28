@@ -14,26 +14,25 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxtjs/color-mode",
 		"@comark/nuxt",
-		"shadcn-nuxt"
+		"shadcn-nuxt",
 	],
 	devtools: { enabled: true },
 	app: {
 		pageTransition: { name: "page", mode: "out-in" },
 		baseURL: process.env.NUXT_APP_BASE_URL || "/",
 	},
-	css: ["~/assets/css/main.css", 'katex/dist/katex.min.css'],
+	css: ["~/assets/css/main.css", "katex/dist/katex.min.css"],
 	site: {
 		url: process.env.NUXT_PUBLIC_SITE_URL || "https://openquery.dev",
 		name: "OpenQuery",
-		description: "Web development insights, tutorials, and thoughts from Islam Ahmed (@SoftEng)",
+		description:
+			"Web development insights, tutorials, and thoughts from Islam Ahmed (@SoftEng)",
 		defaultLocale: "en",
 		trailingSlash: true,
 	},
 	compatibilityDate: "2024-04-03",
 	vite: {
-		plugins: [
-			tailwindcss(),
-		],
+		plugins: [tailwindcss()],
 		optimizeDeps: {
 			include: ["@unhead/schema-org/vue"],
 		},
@@ -79,6 +78,16 @@ export default defineNuxtConfig({
 	ogImage: {
 		zeroRuntime: true, // Disables dynamic server-side image generation
 	},
+	components: {
+		dirs: [
+			// Scan top-level component files (e.g. PageTitle.vue)
+			{ path: "~/components", pattern: "*.vue", prefix: "" },
+			// Scan app-specific components (Navbar, Footer, etc.)
+			{ path: "~/components/app", prefix: "App" },
+			// shadcn-nuxt handles ~/components/ui via its own registration;
+			// excluding it here prevents the NUXT_B3011 duplicate warnings.
+		],
+	},
 	shadcn: {
 		/**
 		 * Prefix for all the imported component.
@@ -96,16 +105,18 @@ export default defineNuxtConfig({
 	content: {
 		build: {
 			markdown: {
-				remarkPlugins: { 'remark-math': {} },
-				rehypePlugins: { 'rehype-katex': {} },
+				remarkPlugins: { "remark-math": {} },
+				rehypePlugins: { "rehype-katex": {} },
 			},
 		},
 	},
 	hooks: {
-		'vite:extendConfig'(config) {
-			const include = config.optimizeDeps?.include
+		"vite:extendConfig"(config) {
+			const include = config.optimizeDeps?.include;
 			if (include) {
-			config.optimizeDeps!.include = include.filter(d => !d.startsWith('@nuxtjs/mdc >'))
+				config.optimizeDeps!.include = include.filter(
+					(d) => !d.startsWith("@nuxtjs/mdc >"),
+				);
 			}
 		},
 	},
